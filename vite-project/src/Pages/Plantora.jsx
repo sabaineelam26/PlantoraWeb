@@ -1,9 +1,11 @@
 import React from 'react'
+import Navbar from '../Components/Navbar';
 
 const Plantora = () => {
+  
   return (
     <div>
-      <h1>Plantora</h1>
+      <Navbar/>
     </div>
   );
 }

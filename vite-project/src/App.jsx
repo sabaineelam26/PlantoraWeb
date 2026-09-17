@@ -6,14 +6,14 @@ import Plantora from './Pages/Plantora'
 function App() {
   const [count, setCount] = useState(0);
 
-  return 
+  return (
   <>
   <Routes>
     <Route path="/" element={<Plantora/>}></Route>
   </Routes>
   
-
-  </>;
+  </>
+  )
 }
 
 export default App;
