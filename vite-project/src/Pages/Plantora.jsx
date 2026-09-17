@@ -6,6 +6,8 @@ const Plantora = () => {
   return (
     <div>
       <Navbar/>
+
+      <img src="/background.png" style={{width: "87rem"}}/>
     </div>
   );
 }

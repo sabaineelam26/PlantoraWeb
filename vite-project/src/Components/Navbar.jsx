@@ -1,83 +1,74 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom';
+import React from "react";
+import "./navbar.css";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <>
-      <nav className="navContainer">
-        <div className="navBar">
-          <div className="">
-            <a href="/" className="lnf" style={{ marginTop: "" }}>
-              <img
-                src="/logo.png"
-                alt="Plantora Logo"
-                style={{ width: "5rem", height: "5rem", marginBottom: "1rem" }}
-              />
-            </a>
-          </div>
+    <nav className="navContainer">
+      <a href="/" className="logo">
+        <img src="/logo.png" alt="Plantora Logo" />
+      </a>
 
-          <div>
-            <ul className="navItemCon">
-              <li className="liStyl">
-                <NavLink
-                  to="/"
-                  className={({ isActive }) =>
-                    `liText ${isActive ? "active" : ""}`
-                  }
-                >
-                  Home
-                </NavLink>
-              </li>
-              <li className="liStyl">
-                <NavLink
-                  to="/about"
-                  className={({ isActive }) =>
-                    `liText ${isActive ? "active" : ""}`
-                  }
-                >
-                  Plants
-                </NavLink>
-              </li>
-              <li className="liStyl">
-                <NavLink to="/members" className="liText">
-                  Plant Finder
-                </NavLink>
-              </li>
-
-              <li className="liStyl">
-                <NavLink
-                  to="/schedule"
-                  className={({ isActive }) =>
-                    `liText ${isActive ? "active" : ""}`
-                  }
-                >
-                  Plant Care
-                </NavLink>
-              </li>
-
-              <li className="liStyl">
-                <NavLink to="/chatbot" className="liText">
-                  Wishlist
-                </NavLink>
-              </li>
-
-              <li className="liStyl">
-                <NavLink to="/chatbot" className="liText">
-                  Cart
-                </NavLink>
-              </li>
-
-              <li className="liStyl">
-                <NavLink to="/chatbot" className="liText">
-                  Profile
-                </NavLink>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </>
+      <ul className="navItemCon">
+        <li>
+          <NavLink
+            to="/"
+            className={({ isActive }) => `liText ${isActive ? "active" : ""}`}
+          >
+            Home
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/about"
+            className={({ isActive }) => `liText ${isActive ? "active" : ""}`}
+          >
+            Plants
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/members"
+            className={({ isActive }) => `liText ${isActive ? "active" : ""}`}
+          >
+            Plant Finder
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/schedule"
+            className={({ isActive }) => `liText ${isActive ? "active" : ""}`}
+          >
+            Plant Care
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/wishlist"
+            className={({ isActive }) => `liText ${isActive ? "active" : ""}`}
+          >
+            Wishlist
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/cart"
+            className={({ isActive }) => `liText ${isActive ? "active" : ""}`}
+          >
+            Cart
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/profile"
+            className={({ isActive }) => `liText ${isActive ? "active" : ""}`}
+          >
+            Profile
+          </NavLink>
+        </li>
+      </ul>
+    </nav>
   );
-}
+};
 
-export default Navbar
+export default Navbar;
