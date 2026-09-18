@@ -1,0 +1,106 @@
+.plant-finder {
+    min-height: 100vh;
+    padding: 80px 8%;
+    background: #f7f1e5;
+    color: #26382a;
+}
+
+/* Header */
+
+.finder-header {
+    max-width: 700px;
+    margin: 0 auto 60px;
+    text-align: center;
+}
+
+.finder-header span {
+    color: #2f6b3a;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+.finder-header h1 {
+    font-size: 48px;
+    margin: 15px 0;
+}
+
+.finder-header p {
+    font-size: 17px;
+    line-height: 1.7;
+    color: #5e625b;
+}
+
+/* Form */
+
+.finder-form {
+    max-width: 900px;
+    margin: auto;
+}
+
+.finder-question {
+    margin-bottom: 50px;
+}
+
+.finder-question h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+/* Options */
+
+.options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.option {
+    min-width: 170px;
+    padding: 18px 25px;
+    border: 1px solid #c8cfc6;
+    border-radius: 12px;
+    background: #fffdf8;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.option input {
+    display: none;
+}
+
+.option:hover {
+    border-color: #2f6b3a;
+    transform: translateY(-2px);
+}
+
+.option.selected {
+    background: #2f6b3a;
+    border-color: #2f6b3a;
+    color: white;
+}
+
+/* Button */
+
+.find-button {
+    display: block;
+    margin: 20px auto 0;
+    padding: 15px 35px;
+
+    border: 2px solid #2f6b3a;
+    border-radius: 30px;
+
+    background: #2f6b3a;
+    color: white;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.find-button:hover {
+    background: transparent;
+    color: #2f6b3a;
+}
