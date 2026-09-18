@@ -7,7 +7,7 @@ const Plantora = () => {
     <div>
       <Navbar/>
 
-      <img src="/background.png" style={{width: "87rem"}}/>
+      <img src="/background.png" style={{width: "100%"}}/>
     </div>
   );
 }
