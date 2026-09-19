@@ -1,13 +1,14 @@
 import React from "react";
 import "./Footer.css";
+import { Link } from "react-router-dom"; 
+
 
 const Footer = () => {
   return (
     <footer className="footer">
       <div className="footerTop">
         <div className="footerCol footerBrand">
-          {/* <h2 className="footerLogo">Plantora</h2>
-          <p className="footerTagline">Plants • Home • Happier You</p> */}
+          
           <a href="/" className="logo">
             <img src="/logo.png" alt="logo" />
           </a>
@@ -78,9 +79,9 @@ const Footer = () => {
       <div className="footerBottom">
         <p>&copy; {new Date().getFullYear()} Plantora. All rights reserved.</p>
         <div className="footerLegal">
-          <a href="/privacy">Privacy Policy</a>
+          <Link to="/privacy">Privacy Policy</Link>
           <span>•</span>
-          <a href="/terms">Terms of Service</a>
+          <Link to="/terms">Terms of Service</Link>
         </div>
       </div>
     </footer>

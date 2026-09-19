@@ -1,24 +1,9 @@
-// import React from 'react'
-// import Navbar from '../Components/Navbar';
-
-// const Plantora = () => {
-
-//   return (
-//     <div>
-//       <Navbar/>
-
-//       <img src="/background.png" style={{width: "100%"}}/>
-
-//       <div>plantora.</div>
-//     </div>
-//   );
-// }
-
-// export default Plantora;
 
 import React from "react";
 import "./Plantora.css"; 
 import Navbar from "../Components/Navbar";
+import { Link } from "react-router-dom";
+
 
 const Plantora = () => {
   return (
@@ -43,8 +28,8 @@ const Plantora = () => {
           </p>
 
           <div className="hero-buttons">
-            <button>Shop Plants</button>
-            <button>Find My Plant</button>
+            <button><Link to="/plants">Shop Plants</Link></button>
+            <button><Link to="/plantFinder">Find My Plant</Link></button>
           </div>
         </div>
       </div>

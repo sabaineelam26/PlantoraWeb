@@ -69,6 +69,11 @@
 }
 
 .hero-buttons button:hover {
-    background-color: transparent;
+    /* background-color: transparent; */
     color: #2F6B3A;
+}
+
+.hero-buttons a {
+    color: white;
+    
 }
