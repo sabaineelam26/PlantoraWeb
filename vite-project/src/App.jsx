@@ -11,6 +11,9 @@ import Wishlist from "./Pages/Wishlist";
 import Cart from './Pages/Cart'; 
 import PrivacyPolicy from "./Pages/PrivacyPolicy";
 import TermsService from "./Pages/TermsService";
+import ShippingReturn from "./Pages/ShippingReturn";
+import Contact from "./Pages/Contact";
+// import Faqs from "./Pages/Faqs"; 
 // import { Profile } from "./Pages/Profile";
 
 function App() {
