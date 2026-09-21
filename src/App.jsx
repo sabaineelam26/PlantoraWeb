@@ -14,6 +14,8 @@ import TermsService from "./Pages/TermsService";
 import ShippingReturn from "./Pages/ShippingReturn";
 import Contact from "./Pages/Contact";
 import Faqs from "./Pages/Faqs";
+import Register from './Components/Register'; 
+import Login from './Components/Login'; 
 // import Faqs from "./Pages/Faqs"; 
 // import { Profile } from "./Pages/Profile";
 
@@ -25,6 +27,8 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Plantora />}></Route>
+        <Route path="/register" element={<Register />}></Route>
+        <Route path="/login" element={<Login />}></Route>
         <Route path="/plants" element={<Plants />}></Route>
         <Route path="/plantFinder" element={<PlantFinder />}></Route>
         <Route path="/plantCare" element={<PlantCare />}></Route>
@@ -32,7 +36,7 @@ function App() {
         <Route path="/cart" element={<Cart />}></Route>
         <Route path="/privacy" element={<PrivacyPolicy />}></Route>
         <Route path="/terms" element={<TermsService />}></Route>
-        <Route path="/Faqs" element=<Faqs/>></Route>
+        <Route path="/Faqs" element=<Faqs />></Route>
         <Route path="/shipping" element=<ShippingReturn />></Route>
         <Route path="/contact" element=<Contact />></Route>
 
