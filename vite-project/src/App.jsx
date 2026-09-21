@@ -13,6 +13,7 @@ import PrivacyPolicy from "./Pages/PrivacyPolicy";
 import TermsService from "./Pages/TermsService";
 import ShippingReturn from "./Pages/ShippingReturn";
 import Contact from "./Pages/Contact";
+import Faqs from "./Pages/Faqs";
 // import Faqs from "./Pages/Faqs"; 
 // import { Profile } from "./Pages/Profile";
 
@@ -31,10 +32,11 @@ function App() {
         <Route path="/cart" element={<Cart />}></Route>
         <Route path="/privacy" element={<PrivacyPolicy />}></Route>
         <Route path="/terms" element={<TermsService />}></Route>
+        <Route path="/Faqs" element=<Faqs/>></Route>
+        <Route path="/shipping" element=<ShippingReturn />></Route>
+        <Route path="/contact" element=<Contact />></Route>
 
         {/* <Route path="/profile" element={<Profile />}></Route> */}
-
-        <Route></Route>
       </Routes>
       <Footer />
     </>

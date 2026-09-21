@@ -22,16 +22,16 @@ const Footer = () => {
           <h4>Shop</h4>
           <ul>
             <li>
-              <a href="/plants">All Plants</a>
+              <Link to="/plants">All Plants</Link>
             </li>
             <li>
-              <a href="/finder">Plant Finder</a>
+              <Link to="/finder">Plant Finder</Link>
             </li>
             <li>
-              <a href="/care">Plant Care</a>
+              <Link to="/care">Plant Care</Link>
             </li>
             <li>
-              <a href="/wishlist">Wishlist</a>
+              <Link to="/wishlist">Wishlist</Link>
             </li>
           </ul>
         </div>
@@ -40,16 +40,16 @@ const Footer = () => {
           <h4>Support</h4>
           <ul>
             <li>
-              <a href="/faq">FAQs</a>
+              <Link to="/Faqs">FAQs</Link>
             </li>
             <li>
-              <a href="/shipping">Shipping & Returns</a>
+              <Link to="/shipping">Shipping & Returns</Link>
             </li>
             <li>
-              <a href="/contact">Contact Us</a>
+              <Link to="/contact">Contact Us</Link>
             </li>
             <li>
-              <a href="/track-order">Track Order</a>
+              <Link to="/track-order">Track Order</Link>
             </li>
           </ul>
         </div>
