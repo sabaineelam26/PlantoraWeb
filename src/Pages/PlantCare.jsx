@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./PlantCare.css";
+import "./plantCare.css";
 
 const PlantCare = () => {
   const [searchTerm, setSearchTerm] = useState("");
