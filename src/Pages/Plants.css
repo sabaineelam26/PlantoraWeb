@@ -1,0 +1,148 @@
+.plants-page {
+  padding: 40px 5%;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.plants-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.plants-header h1 {
+  font-size: 2.5rem;
+  color: #1a4d07;
+  margin-bottom: 10px;
+}
+
+.plants-header p {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.plants-container {
+  display: flex;
+  gap: 40px;
+}
+
+.plants-sidebar {
+  width: 280px;
+  flex-shrink: 0;
+}
+
+.filter-group {
+  margin-bottom: 30px;
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.filter-group h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+  color: #333;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 10px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #2F6B3A;
+}
+
+.category-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.category-list li {
+  margin-bottom: 8px;
+}
+
+.category-btn {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 10px 15px;
+  font-size: 1rem;
+  color: #555;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.category-btn:hover {
+  background: #f0f7ec;
+  color: #2F6B3A;
+}
+
+.category-btn.active {
+  background: #2F6B3A;
+  color: white;
+  font-weight: 600;
+}
+
+.sort-select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: white;
+  cursor: pointer;
+}
+
+.plants-main {
+  flex-grow: 1;
+}
+
+.results-info {
+  margin-bottom: 20px;
+  color: #777;
+  font-weight: 500;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  background: #f9f9f9;
+  border-radius: 12px;
+}
+
+.empty-state h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.empty-state p {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 868px) {
+  .plants-container {
+    flex-direction: column;
+  }
+  
+  .plants-sidebar {
+    width: 100%;
+  }
+}

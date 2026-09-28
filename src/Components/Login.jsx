@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 import "./LoginRegister.css";
 
 const Login = () => {
@@ -7,6 +8,9 @@ const Login = () => {
     email: "",
     password: "",
   });
+  
+  const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -20,7 +24,11 @@ const Login = () => {
 
     console.log("Login Data:", formData);
 
-    // Backend login API will be connected here
+    // Mock backend login
+    if (formData.email) {
+      login({ email: formData.email, name: formData.email.split('@')[0] });
+      navigate("/");
+    }
   };
 
   return (

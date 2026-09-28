@@ -1,45 +1,66 @@
+.home-container {
+  font-family: 'Inter', sans-serif;
+  color: #333;
+}
+
 .hero {
     position: relative;
     width: 100%;
+    height: 80vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
 }
 
 .hero-image {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    display: block;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.2);
+    z-index: -1;
 }
 
 .hero-content {
-    position: absolute;
-
-    top: 50%;
-    left: 50%;
-
-    transform: translate(-50%, -50%);
-
-    width: 500px;
+    width: 90%;
+    max-width: 600px;
     padding: 40px;
-
     text-align: center;
-
-    background: rgba(255, 248, 235, 0.85);
+    background: rgba(255, 255, 255, 0.9);
     border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    backdrop-filter: blur(10px);
 }
 
 .hero-tag {
     font-size: 12px;
     letter-spacing: 2px;
+    color: #2F6B3A;
+    font-weight: 600;
 }
 
 .hero-content h1 {
-    font-size: 52px;
-    line-height: 1.1;
+    font-size: 3rem;
+    line-height: 1.2;
     margin: 15px 0;
+    color: #1a4d07;
 }
 
 .hero-content p {
-    font-size: 17px;
+    font-size: 1.1rem;
     line-height: 1.6;
     margin-bottom: 25px;
+    color: #555;
 }
 
 .hero-buttons {
@@ -48,32 +69,157 @@
     gap: 15px;
 }
 
-/* .hero-buttons button {
-    padding: 13px 25px;
-    border: none;
+.btn-primary, .btn-secondary {
+    padding: 12px 24px;
     border-radius: 30px;
-    cursor: pointer;
-} */
-
-.hero-buttons button {
-    padding: 13px 25px;
-    border: 2px solid #2F6B3A;
-    border-radius: 30px;
-    cursor: pointer;
-
-    background-color: #2F6B3A;
-    color: white;
-
-    font-size: 15px;
+    text-decoration: none;
+    font-weight: 600;
     transition: all 0.3s ease;
 }
 
-.hero-buttons button:hover {
-    /* background-color: transparent; */
+.btn-primary {
+    background: #2F6B3A;
+    color: #fff;
+    border: 2px solid #2F6B3A;
+}
+
+.btn-primary:hover {
+    background: #1a4d07;
+    border-color: #1a4d07;
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #2F6B3A;
+    border: 2px solid #2F6B3A;
+}
+
+.btn-secondary:hover {
+    background: #2F6B3A;
+    color: #fff;
+}
+
+/* Sections */
+.categories-section, .featured-section {
+    padding: 60px 5%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 40px;
+}
+
+.section-header h2 {
+    font-size: 2.2rem;
+    color: #1a4d07;
+    margin: 0;
+}
+
+.section-header p {
+    color: #666;
+    margin: 5px 0 0 0;
+}
+
+.view-all {
+    color: #2F6B3A;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.view-all:hover {
+    text-decoration: underline;
+}
+
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.category-card {
+    background: #f0f7ec;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    background: #e1f0da;
+}
+
+.category-card h3 {
+    margin-top: 0;
     color: #2F6B3A;
 }
 
-.hero-buttons a {
+.category-card a {
+    color: #555;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.featured-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.benefits-section {
+    display: flex;
+    justify-content: space-around;
+    padding: 60px 5%;
+    background: #1a4d07;
     color: white;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.benefit {
+    text-align: center;
+    max-width: 300px;
+}
+
+.benefit h3 {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+}
+
+.benefit p {
+    font-size: 0.95rem;
+    opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+    .hero {
+        height: 60vh;
+        min-height: 500px;
+    }
+
+    .hero-image {
+        object-position: center;
+    }
+
+    .hero-content {
+        padding: 25px;
+    }
+
+    .hero-content h1 {
+        font-size: 2rem;
+    }
     
+    .hero-buttons {
+        flex-direction: column;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
 }

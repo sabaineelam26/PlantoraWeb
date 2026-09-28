@@ -1,12 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import './navbar.css'
 
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const { user, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const linkClass = ({ isActive }) => `liText ${isActive ? "active" : ""}`;
+
+  const handleAuthAction = () => {
+    setOpen(false);
+    if (user) {
+      logout();
+      navigate("/");
+    } else {
+      navigate("/login");
+    }
+  };
 
   return (
     <nav className="navContainer">
@@ -77,13 +90,13 @@ const Navbar = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink
-            to="/profile"
-            className={linkClass}
-            onClick={() => setOpen(false)}
+          <button 
+            className="liText auth-nav-btn" 
+            onClick={handleAuthAction}
+            style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 'inherit', fontFamily: 'inherit', padding: 0 }}
           >
-            Profile
-          </NavLink>
+            {user ? "Logout" : "Login"}
+          </button>
         </li>
       </ul>
     </nav>

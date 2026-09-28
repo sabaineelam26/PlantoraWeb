@@ -15,8 +15,7 @@ import Contact from "./Pages/Contact";
 import Faqs from "./Pages/Faqs";
 import Register from './Components/Register'; 
 import Login from './Components/Login'; 
-// import Faqs from "./Pages/Faqs"; 
-// import { Profile } from "./Pages/Profile";
+import ProductDetail from './Pages/ProductDetail';
 
 function App() {
   // const [count, setCount] = useState(0);
@@ -29,17 +28,16 @@ function App() {
         <Route path="/register" element={<Register />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/plants" element={<Plants />}></Route>
+        <Route path="/plants/:id" element={<ProductDetail />}></Route>
         <Route path="/plantFinder" element={<PlantFinder />}></Route>
         <Route path="/plantCare" element={<PlantCare />}></Route>
         <Route path="/wishlist" element={<Wishlist />}></Route>
         <Route path="/cart" element={<Cart />}></Route>
         <Route path="/privacy" element={<PrivacyPolicy />}></Route>
         <Route path="/terms" element={<TermsService />}></Route>
-        <Route path="/Faqs" element=<Faqs />></Route>
-        <Route path="/shipping" element=<ShippingReturn />></Route>
-        <Route path="/contact" element=<Contact />></Route>
-
-        {/* <Route path="/profile" element={<Profile />}></Route> */}
+        <Route path="/Faqs" element={<Faqs />}></Route>
+        <Route path="/shipping" element={<ShippingReturn />}></Route>
+        <Route path="/contact" element={<Contact />}></Route>
       </Routes>
       <Footer />
     </>
