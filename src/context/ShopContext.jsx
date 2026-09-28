@@ -3,21 +3,15 @@ import React, { createContext, useState, useEffect } from 'react';
 export const ShopContext = createContext(null);
 
 export const ShopContextProvider = (props) => {
-  const [cartItems, setCartItems] = useState([]);
-  const [wishlistItems, setWishlistItems] = useState([]);
-
-  // Load from local storage if available
-  useEffect(() => {
-    const savedCart = localStorage.getItem('plantora-cart');
-    const savedWishlist = localStorage.getItem('plantora-wishlist');
-    
-    if (savedCart) {
-      setCartItems(JSON.parse(savedCart));
-    }
-    if (savedWishlist) {
-      setWishlistItems(JSON.parse(savedWishlist));
-    }
-  }, []);
+  const [cartItems, setCartItems] = useState(() => {
+    const saved = localStorage.getItem('plantora-cart');
+    return saved ? JSON.parse(saved) : [];
+  });
+  
+  const [wishlistItems, setWishlistItems] = useState(() => {
+    const saved = localStorage.getItem('plantora-wishlist');
+    return saved ? JSON.parse(saved) : [];
+  });
 
   // Save to local storage when changed
   useEffect(() => {

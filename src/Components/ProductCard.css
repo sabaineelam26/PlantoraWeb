@@ -99,7 +99,32 @@
   transition: background 0.3s, color 0.3s;
 }
 
-.btn-add-cart:hover {
+.btn-add-cart:hover, .btn-wishlist-card:hover {
   background: #2b7a0b;
   color: #fff;
+}
+
+.btn-wishlist-card {
+  background: #f0f7ec;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #e53935;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+  font-size: 1.2rem;
+}
+
+.btn-wishlist-card:hover {
+  background: #e53935;
+  color: #fff;
+}
+
+.card-buttons {
+  display: flex;
+  gap: 10px;
 }

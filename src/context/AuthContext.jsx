@@ -3,14 +3,10 @@ import React, { createContext, useState, useEffect } from 'react';
 export const AuthContext = createContext(null);
 
 export const AuthContextProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
+  const [user, setUser] = useState(() => {
     const storedUser = localStorage.getItem('plantora-user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
 
   const login = (userData) => {
     setUser(userData);

@@ -5,7 +5,7 @@ import { AuthContext } from '../context/AuthContext';
 import './ProductCard.css';
 
 const ProductCard = ({ plant }) => {
-  const { addToCart } = useContext(ShopContext);
+  const { addToCart, addToWishlist } = useContext(ShopContext);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -17,6 +17,16 @@ const ProductCard = ({ plant }) => {
     }
     addToCart(plant);
     alert('Added to cart!');
+  };
+
+  const handleAddToWishlist = () => {
+    if (!user) {
+      alert("Please login to add items to your wishlist.");
+      navigate("/login");
+      return;
+    }
+    addToWishlist(plant);
+    alert('Added to wishlist!');
   };
 
   return (
@@ -32,9 +42,14 @@ const ProductCard = ({ plant }) => {
         <p className="product-card-category">{plant.category}</p>
         <div className="product-card-actions">
           <Link to={`/plants/${plant.id}`} className="btn-details">View Details</Link>
-          <button className="btn-add-cart" onClick={handleAddToCart}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-          </button>
+          <div className="card-buttons">
+            <button className="btn-wishlist-card" onClick={handleAddToWishlist} title="Add to Wishlist">
+              ♡
+            </button>
+            <button className="btn-add-cart" onClick={handleAddToCart} title="Add to Cart">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+            </button>
+          </div>
         </div>
       </div>
     </div>
