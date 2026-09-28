@@ -1,92 +1,45 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+import { plantsData } from "../data";
 import "./plantCare.css";
 
 const PlantCare = () => {
+  const { user } = useContext(AuthContext);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedPlant, setSelectedPlant] = useState(null);
   const [completedTasks, setCompletedTasks] = useState([]);
 
-  // Plants that belong to the logged-in user
-  // Later this will come from your backend API.
-  const myPlants = [
+  // Mock delivered plants for logged-in user
+  const myPlants = user ? [
     {
-      id: 1,
-      name: "Monstera",
-      type: "Tropical Plant",
-      image: "/monstera.jpg",
+      ...plantsData[0], // Monstera
       deliveredDate: "21 Sep 2026",
       lastWatered: "18 Sep",
       nextWatering: "Today",
       status: "Healthy",
     },
     {
-      id: 2,
-      name: "Snake Plant",
-      type: "Low Maintenance",
-      image: "/snake-plant.jpg",
+      ...plantsData[6], // Snake Plant
       deliveredDate: "15 Sep 2026",
       lastWatered: "17 Sep",
       nextWatering: "In 3 days",
       status: "Healthy",
     },
-  ];
+  ] : [];
 
-  // General plant-care library
-  // Users can view this without purchasing a plant.
-  const plantLibrary = [
-    {
-      id: 1,
-      name: "Monstera",
-      type: "Tropical Plant",
-      image: "/monstera.jpg",
-      sunlight: "Bright, indirect sunlight",
-      watering: "Every 7–10 days",
-      humidity: "Medium to high",
-      temperature: "18°C – 30°C",
-      fertilizer: "Once a month",
-      description:
-        "A beautiful tropical plant with large leaves. Monstera prefers warm conditions and bright indirect light.",
-    },
-    {
-      id: 2,
-      name: "Snake Plant",
-      type: "Low Maintenance",
-      image: "/snake-plant.jpg",
-      sunlight: "Low to bright indirect light",
-      watering: "Every 2–3 weeks",
-      humidity: "Low to medium",
-      temperature: "15°C – 30°C",
-      fertilizer: "Every 2–3 months",
-      description:
-        "One of the easiest indoor plants to care for. It tolerates low light and doesn't need frequent watering.",
-    },
-    {
-      id: 3,
-      name: "Peace Lily",
-      type: "Flowering Plant",
-      image: "/peace-lily.jpg",
-      sunlight: "Bright, indirect sunlight",
-      watering: "About once a week",
-      humidity: "Medium to high",
-      temperature: "18°C – 29°C",
-      fertilizer: "Once a month",
-      description:
-        "Peace Lily produces beautiful flowers and enjoys indirect light, moist soil, and higher humidity.",
-    },
-    {
-      id: 4,
-      name: "Aloe Vera",
-      type: "Succulent",
-      image: "/aloe-vera.jpg",
-      sunlight: "Bright sunlight",
-      watering: "Every 2–3 weeks",
-      humidity: "Low",
-      temperature: "15°C – 30°C",
-      fertilizer: "Every 2–3 months",
-      description:
-        "Aloe Vera is a low-maintenance succulent that enjoys bright light and well-draining soil.",
-    },
-  ];
+  // Use plantsData for the global library
+  const plantLibrary = plantsData.map(p => ({
+    id: p.id,
+    name: p.name,
+    type: p.category,
+    image: p.image,
+    sunlight: p.care.light,
+    watering: p.care.water,
+    humidity: p.care.humidity,
+    temperature: "18°C – 30°C", // default mock
+    fertilizer: "Once a month", // default mock
+    description: p.description
+  }));
 
   const tasks = [
     {
@@ -155,107 +108,98 @@ const PlantCare = () => {
           MY PLANTS
       ============================== */}
 
-      <section className="care-section">
-        <div className="section-top">
-          <div>
-            <span className="section-eyebrow">YOUR COLLECTION</span>
-
-            <h2>My Plants</h2>
-
-            <p>Plants you've received from Plantora.</p>
+      {user && (
+        <section className="care-section">
+          <div className="section-top">
+            <div>
+              <span className="section-eyebrow">YOUR COLLECTION</span>
+              <h2>My Plants</h2>
+              <p>Plants you've received from Plantora.</p>
+            </div>
+            <span className="plant-count">{myPlants.length} Plants</span>
           </div>
 
-          <span className="plant-count">{myPlants.length} Plants</span>
-        </div>
+          {myPlants.length > 0 ? (
+            <div className="my-plants-grid">
+              {myPlants.map((plant) => (
+                <article className="my-plant-card" key={plant.id}>
+                  <div className="my-plant-image">
+                    <img src={plant.image} alt={plant.name} />
+                    <span className="healthy-badge">● {plant.status}</span>
+                  </div>
 
-        {myPlants.length > 0 ? (
-          <div className="my-plants-grid">
-            {myPlants.map((plant) => (
-              <article className="my-plant-card" key={plant.id}>
-                <div className="my-plant-image">
-                  <img src={plant.image} alt={plant.name} />
+                  <div className="my-plant-body">
+                    <div className="plant-title-row">
+                      <div>
+                        <h3>{plant.name}</h3>
+                        <p>{plant.type}</p>
+                      </div>
 
-                  <span className="healthy-badge">● {plant.status}</span>
-                </div>
+                      <button
+                        className="round-care-button"
+                        onClick={() =>
+                          setSelectedPlant(
+                            plantLibrary.find((item) => item.name === plant.name),
+                          )
+                        }
+                        aria-label={`View ${plant.name} care`}
+                      >
+                        →
+                      </button>
+                    </div>
 
-                <div className="my-plant-body">
-                  <div className="plant-title-row">
-                    <div>
-                      <h3>{plant.name}</h3>
-                      <p>{plant.type}</p>
+                    <div className="delivery-line">
+                      <span>📦</span>
+                      <p>
+                        Delivered <strong>{plant.deliveredDate}</strong>
+                      </p>
+                    </div>
+
+                    <div className="watering-row">
+                      <div>
+                        <span className="care-icon">💧</span>
+                        <div>
+                          <small>Last watered</small>
+                          <strong>{plant.lastWatered}</strong>
+                        </div>
+                      </div>
+
+                      <div>
+                        <span className="care-icon">🌱</span>
+                        <div>
+                          <small>Next watering</small>
+                          <strong>{plant.nextWatering}</strong>
+                        </div>
+                      </div>
                     </div>
 
                     <button
-                      className="round-care-button"
+                      className="primary-care-button"
                       onClick={() =>
                         setSelectedPlant(
                           plantLibrary.find((item) => item.name === plant.name),
                         )
                       }
-                      aria-label={`View ${plant.name} care`}
                     >
-                      →
+                      View Plant Care
+                      <span>→</span>
                     </button>
                   </div>
-
-                  <div className="delivery-line">
-                    <span>📦</span>
-
-                    <p>
-                      Delivered <strong>{plant.deliveredDate}</strong>
-                    </p>
-                  </div>
-
-                  <div className="watering-row">
-                    <div>
-                      <span className="care-icon">💧</span>
-
-                      <div>
-                        <small>Last watered</small>
-
-                        <strong>{plant.lastWatered}</strong>
-                      </div>
-                    </div>
-
-                    <div>
-                      <span className="care-icon">🌱</span>
-
-                      <div>
-                        <small>Next watering</small>
-
-                        <strong>{plant.nextWatering}</strong>
-                      </div>
-                    </div>
-                  </div>
-
-                  <button
-                    className="primary-care-button"
-                    onClick={() =>
-                      setSelectedPlant(
-                        plantLibrary.find((item) => item.name === plant.name),
-                      )
-                    }
-                  >
-                    View Plant Care
-                    <span>→</span>
-                  </button>
-                </div>
-              </article>
-            ))}
-          </div>
-        ) : (
-          <div className="empty-plants">
-            <div className="empty-plant-icon">🌱</div>
-
-            <h3>Your plant family is empty</h3>
-
-            <p>
-              Once your Plantora order is delivered, your plants will appear
-              here.
-            </p>
-          </div>
-        )}
-      </section>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <div className="empty-plants">
+              <div className="empty-plant-icon">🌱</div>
+              <h3>Your plant family is empty</h3>
+              <p>
+                Once your Plantora order is delivered, your plants will appear
+                here.
+              </p>
+            </div>
+          )}
+        </section>
+      )}
 
       {/* ==============================
           TODAY'S CARE
