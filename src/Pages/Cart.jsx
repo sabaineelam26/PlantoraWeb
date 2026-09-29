@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ShopContext } from '../context/ShopContext';
 import './Cart.css';
 
 const Cart = () => {
   const { cartItems, removeFromCart, updateCartQuantity } = useContext(ShopContext);
+  const navigate = useNavigate();
 
   const handleRemove = (id) => {
     removeFromCart(id);
@@ -12,6 +13,10 @@ const Cart = () => {
 
   const updateQuantity = (id, newQuantity) => {
     updateCartQuantity(id, newQuantity);
+  };
+
+  const handleCheckout = () => {
+    navigate('/checkout');
   };
 
   const subtotal = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
@@ -69,7 +74,7 @@ const Cart = () => {
               <span>Total</span>
               <span>${total.toFixed(2)}</span>
             </div>
-            <button className="btn-primary btn-checkout">Proceed to Checkout</button>
+            <button className="btn-primary btn-checkout" onClick={handleCheckout}>Proceed to Checkout</button>
           </div>
         </div>
       )}

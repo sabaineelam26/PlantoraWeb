@@ -8,6 +8,7 @@ import PlantFinder from "./Pages/PlantFinder";
 import PlantCare from "./Pages/PlantCare";
 import Wishlist from "./Pages/Wishlist";
 import Cart from './Pages/Cart'; 
+import Checkout from './Pages/Checkout';
 import PrivacyPolicy from "./Pages/PrivacyPolicy";
 import TermsService from "./Pages/TermsService";
 import ShippingReturn from "./Pages/ShippingReturn";
@@ -33,6 +34,7 @@ function App() {
         <Route path="/plantCare" element={<PlantCare />}></Route>
         <Route path="/wishlist" element={<Wishlist />}></Route>
         <Route path="/cart" element={<Cart />}></Route>
+        <Route path="/checkout" element={<Checkout />}></Route>
         <Route path="/privacy" element={<PrivacyPolicy />}></Route>
         <Route path="/terms" element={<TermsService />}></Route>
         <Route path="/Faqs" element={<Faqs />}></Route>
