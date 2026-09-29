@@ -100,7 +100,14 @@
     transition: 0.3s ease;
 }
 
-.find-button:hover {
+.find-button:hover:not(:disabled) {
     background: transparent;
     color: #2f6b3a;
+}
+
+.find-button:disabled {
+    background: #c8cfc6;
+    border-color: #c8cfc6;
+    color: #fff;
+    cursor: not-allowed;
 }
