@@ -19,15 +19,25 @@ const Login = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("Login Data:", formData);
-
-    // Mock backend login
-    if (formData.email) {
-      login({ email: formData.email, name: formData.email.split('@')[0] });
-      navigate("/");
+    try {
+      const response = await fetch("http://localhost:7000/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        login({ ...data.user, token: data.token });
+        navigate("/");
+      } else {
+        alert(data.message || "Login failed");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      alert("Something went wrong");
     }
   };
 

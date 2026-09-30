@@ -17,7 +17,7 @@ const Register = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
@@ -25,9 +25,27 @@ const Register = () => {
       return;
     }
 
-    console.log("Register Data:", formData);
-
-    // Backend register API will be connected here
+    try {
+      const response = await fetch("http://localhost:7000/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          password: formData.password
+        }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        alert("Registration successful! Please login.");
+        // Redirect to login or auto-login could be done here
+      } else {
+        alert(data.message || "Registration failed");
+      }
+    } catch (error) {
+      console.error("Registration error:", error);
+      alert("Something went wrong");
+    }
   };
 
   return (
