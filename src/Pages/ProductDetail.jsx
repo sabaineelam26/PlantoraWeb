@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { plantsData } from '../data';
 import { ShopContext } from '../context/ShopContext';
@@ -10,9 +10,31 @@ const ProductDetail = () => {
   const plant = plantsData.find(p => p.id === parseInt(id));
   
   const [quantity, setQuantity] = useState(1);
+  const [userLight, setUserLight] = useState("Medium");
+  const [userExperience, setUserExperience] = useState("Intermediate");
+  const [compatScore, setCompatScore] = useState(0);
+
   const { addToCart, addToWishlist } = useContext(ShopContext);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (plant) {
+      let score = 40; 
+      const plantLight = plant.care.light.toLowerCase();
+      
+      if (userLight === "Bright" && plantLight.includes("bright")) score += 30;
+      else if (userLight === "Low" && plantLight.includes("low")) score += 30;
+      else if (userLight === "Medium" && (plantLight.includes("indirect") || plantLight.includes("medium"))) score += 30;
+      else score += 10;
+
+      if (userExperience === "Beginner" && (plant.category === "Easy-Care Plants" || plant.category === "Low-Light Plants")) score += 30;
+      else if (userExperience === "Expert") score += 30;
+      else if (userExperience === "Intermediate") score += 20;
+
+      setCompatScore(Math.min(score, 100));
+    }
+  }, [userLight, userExperience, plant]);
 
   if (!plant) {
     return (
@@ -52,17 +74,17 @@ const ProductDetail = () => {
   };
 
   return (
-    <div className="product-detail-page">
+    <div className="product-detail-page fade-in">
       <div className="breadcrumb">
         <Link to="/">Home</Link> / <Link to="/plants">Plants</Link> / <span>{plant.name}</span>
       </div>
       
       <div className="product-detail-container">
-        <div className="product-image-section">
+        <div className="product-image-section slide-right">
           <img src={plant.image} alt={plant.name} className="main-image" />
         </div>
         
-        <div className="product-info-section">
+        <div className="product-info-section slide-left">
           <div className="product-title-area">
             <h1>{plant.name}</h1>
             <p className="price">${plant.price}</p>
@@ -75,6 +97,32 @@ const ProductDetail = () => {
           
           <p className="description">{plant.description}</p>
           
+          <div className="compatibility-section">
+            <h3>Plant Compatibility Score</h3>
+            <div className="compat-controls">
+              <label>
+                Your Light:
+                <select value={userLight} onChange={(e) => setUserLight(e.target.value)}>
+                  <option value="Low">Low Light</option>
+                  <option value="Medium">Medium Light</option>
+                  <option value="Bright">Bright Light</option>
+                </select>
+              </label>
+              <label>
+                Experience:
+                <select value={userExperience} onChange={(e) => setUserExperience(e.target.value)}>
+                  <option value="Beginner">Beginner</option>
+                  <option value="Intermediate">Intermediate</option>
+                  <option value="Expert">Expert</option>
+                </select>
+              </label>
+            </div>
+            <div className="compat-score-bar">
+              <div className="compat-fill" style={{ width: `${compatScore}%`, backgroundColor: compatScore > 70 ? '#27ae60' : compatScore > 40 ? '#f39c12' : '#e74c3c' }}></div>
+            </div>
+            <p className="compat-text">{compatScore}% Match for your space!</p>
+          </div>
+
           <div className="care-instructions">
             <h3>Care Instructions</h3>
             <ul>

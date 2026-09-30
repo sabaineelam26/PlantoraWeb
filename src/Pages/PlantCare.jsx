@@ -9,25 +9,22 @@ const PlantCare = () => {
   const [selectedPlant, setSelectedPlant] = useState(null);
   const [completedTasks, setCompletedTasks] = useState([]);
 
-  // Mock delivered plants for logged-in user
-  const myPlants = user ? [
-    {
-      ...plantsData[0], // Monstera
-      deliveredDate: "21 Sep 2026",
-      lastWatered: "18 Sep",
-      nextWatering: "Today",
-      status: "Healthy",
-    },
-    {
-      ...plantsData[6], // Snake Plant
-      deliveredDate: "15 Sep 2026",
-      lastWatered: "17 Sep",
-      nextWatering: "In 3 days",
-      status: "Healthy",
-    },
-  ] : [];
+  // Interactive Watering Dashboard state
+  const [dashboardPlants, setDashboardPlants] = useState(user ? [
+    { ...plantsData[0], nextWater: 'Today', status: 'Needs Water', health: 80 },
+    { ...plantsData[1], nextWater: 'In 2 Days', status: 'Thriving', health: 95 },
+    { ...plantsData[2], nextWater: 'Tomorrow', status: 'Good', health: 85 }
+  ] : []);
 
-  // Use plantsData for the global library
+  const handleWater = (id) => {
+    setDashboardPlants(prev => prev.map(p => {
+      if (p.id === id) {
+        return { ...p, nextWater: 'In 7 Days', status: 'Thriving', health: 100 };
+      }
+      return p;
+    }));
+  };
+
   const plantLibrary = plantsData.map(p => ({
     id: p.id,
     name: p.name,
@@ -41,38 +38,9 @@ const PlantCare = () => {
     description: p.description
   }));
 
-  const tasks = [
-    {
-      id: 1,
-      icon: "💧",
-      title: "Water Monstera",
-      description: "Your Monstera is ready for watering.",
-    },
-    {
-      id: 2,
-      icon: "☀️",
-      title: "Check sunlight",
-      description: "Make sure your plants get enough indirect light.",
-    },
-    {
-      id: 3,
-      icon: "🍃",
-      title: "Check plant leaves",
-      description: "Look for yellow, dry, or damaged leaves.",
-    },
-  ];
-
   const filteredPlants = plantLibrary.filter((plant) =>
     plant.name.toLowerCase().includes(searchTerm.toLowerCase()),
   );
-
-  const toggleTask = (id) => {
-    setCompletedTasks((previous) =>
-      previous.includes(id)
-        ? previous.filter((taskId) => taskId !== id)
-        : [...previous, id],
-    );
-  };
 
   return (
     <main className="plant-care-page">
@@ -105,184 +73,42 @@ const PlantCare = () => {
       </section>
 
       {/* ==============================
-          MY PLANTS
+          WATERING & CARE DASHBOARD
       ============================== */}
 
       {user && (
-        <section className="care-section">
-          <div className="section-top">
-            <div>
-              <span className="section-eyebrow">YOUR COLLECTION</span>
-              <h2>My Plants</h2>
-              <p>Plants you've received from Plantora.</p>
-            </div>
-            <span className="plant-count">{myPlants.length} Plants</span>
+        <section className="care-section slide-up">
+          <div className="dashboard-header">
+            <h2>💧 My Plant Care Dashboard</h2>
+            <p>Stay on top of your watering schedules.</p>
           </div>
 
-          {myPlants.length > 0 ? (
-            <div className="my-plants-grid">
-              {myPlants.map((plant) => (
-                <article className="my-plant-card" key={plant.id}>
-                  <div className="my-plant-image">
-                    <img src={plant.image} alt={plant.name} />
-                    <span className="healthy-badge">● {plant.status}</span>
+          <div className="care-grid">
+            {dashboardPlants.map(plant => (
+              <div key={plant.id} className="care-card">
+                <img src={plant.image} alt={plant.name} className="care-img" />
+                <div className="care-details">
+                  <h3>{plant.name}</h3>
+                  <p className="care-requirement">Requires: {plant.care.water}</p>
+                  <div className="status-indicators">
+                    <span className={`status-badge ${plant.status === 'Needs Water' ? 'urgent' : 'good'}`}>
+                      {plant.status}
+                    </span>
+                    <span className="health-badge">Health: {plant.health}%</span>
                   </div>
-
-                  <div className="my-plant-body">
-                    <div className="plant-title-row">
-                      <div>
-                        <h3>{plant.name}</h3>
-                        <p>{plant.type}</p>
-                      </div>
-
-                      <button
-                        className="round-care-button"
-                        onClick={() =>
-                          setSelectedPlant(
-                            plantLibrary.find((item) => item.name === plant.name),
-                          )
-                        }
-                        aria-label={`View ${plant.name} care`}
-                      >
-                        →
-                      </button>
-                    </div>
-
-                    <div className="delivery-line">
-                      <span>📦</span>
-                      <p>
-                        Delivered <strong>{plant.deliveredDate}</strong>
-                      </p>
-                    </div>
-
-                    <div className="watering-row">
-                      <div>
-                        <span className="care-icon">💧</span>
-                        <div>
-                          <small>Last watered</small>
-                          <strong>{plant.lastWatered}</strong>
-                        </div>
-                      </div>
-
-                      <div>
-                        <span className="care-icon">🌱</span>
-                        <div>
-                          <small>Next watering</small>
-                          <strong>{plant.nextWatering}</strong>
-                        </div>
-                      </div>
-                    </div>
-
-                    <button
-                      className="primary-care-button"
-                      onClick={() =>
-                        setSelectedPlant(
-                          plantLibrary.find((item) => item.name === plant.name),
-                        )
-                      }
+                  <div className="action-row">
+                    <p className="next-water"><strong>Next Water:</strong> {plant.nextWater}</p>
+                    <button 
+                      className="btn-water" 
+                      onClick={() => handleWater(plant.id)}
+                      disabled={plant.nextWater === 'In 7 Days'}
                     >
-                      View Plant Care
-                      <span>→</span>
+                      {plant.nextWater === 'In 7 Days' ? 'Watered ✓' : 'Water Now 💦'}
                     </button>
                   </div>
-                </article>
-              ))}
-            </div>
-          ) : (
-            <div className="empty-plants">
-              <div className="empty-plant-icon">🌱</div>
-              <h3>Your plant family is empty</h3>
-              <p>
-                Once your Plantora order is delivered, your plants will appear
-                here.
-              </p>
-            </div>
-          )}
-        </section>
-      )}
-
-      {/* ==============================
-          TODAY'S CARE
-      ============================== */}
-
-      {myPlants.length > 0 && (
-        <section className="care-section dashboard-section">
-          <div className="dashboard-grid">
-            {/* Tasks */}
-
-            <div className="tasks-card">
-              <div className="section-top compact">
-                <div>
-                  <span className="section-eyebrow">TODAY</span>
-
-                  <h2>Care Tasks</h2>
-                </div>
-
-                <span className="today-date">21 September</span>
-              </div>
-
-              <div className="task-list">
-                {tasks.map((task) => {
-                  const completed = completedTasks.includes(task.id);
-
-                  return (
-                    <div
-                      className={`care-task ${
-                        completed ? "task-completed" : ""
-                      }`}
-                      key={task.id}
-                    >
-                      <div className="task-icon">{task.icon}</div>
-
-                      <div className="task-info">
-                        <h3>{task.title}</h3>
-
-                        <p>{task.description}</p>
-                      </div>
-
-                      <button
-                        className="task-check"
-                        onClick={() => toggleTask(task.id)}
-                      >
-                        {completed ? "✓" : ""}
-                      </button>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Progress */}
-
-            <div className="progress-card">
-              <span className="section-eyebrow">THIS WEEK</span>
-
-              <h2>Care Progress</h2>
-
-              <div className="progress-ring">
-                <div className="progress-inner">
-                  <strong>82%</strong>
-
-                  <span>Complete</span>
                 </div>
               </div>
-
-              <p>
-                You're doing a great job keeping your plants happy and healthy.
-              </p>
-
-              <div className="progress-stats">
-                <div>
-                  <strong>18</strong>
-                  <span>Completed</span>
-                </div>
-
-                <div>
-                  <strong>4</strong>
-                  <span>Remaining</span>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </section>
       )}
