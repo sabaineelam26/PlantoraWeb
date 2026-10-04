@@ -20,7 +20,7 @@ const PlantCare = () => {
 
   const fetchMyPlants = async () => {
     try {
-      const res = await fetch("http://localhost:7000/api/my-plants", {
+      const res = await fetch("https://plantora-backend.vercel.app/api/my-plants", {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       if (res.ok) {
@@ -90,7 +90,7 @@ const PlantCare = () => {
         return p;
       }));
       
-      await fetch(`http://localhost:7000/api/my-plants/${id}`, {
+      await fetch(`https://plantora-backend.vercel.app/api/my-plants/${id}`, {
         method: "PUT",
         headers: { 
           "Content-Type": "application/json",
