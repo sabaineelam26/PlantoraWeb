@@ -1,14 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Footer.css";
 import { Link } from "react-router-dom"; 
 
 
 const Footer = () => {
+  const [email, setEmail] = useState("");
+  const [isSubscribed, setIsSubscribed] = useState(false);
+
+  const handleSubscribe = (e) => {
+    e.preventDefault();
+    if (email) {
+      setIsSubscribed(true);
+      setEmail("");
+      setTimeout(() => setIsSubscribed(false), 3000);
+    }
+  };
+
   return (
     <footer className="footer">
       <div className="footerTop">
         <div className="footerCol footerBrand">
-          
           <a href="/" className="logo">
             <img src="/logo.png" alt="logo" />
           </a>
@@ -25,10 +36,10 @@ const Footer = () => {
               <Link to="/plants">All Plants</Link>
             </li>
             <li>
-              <Link to="/finder">Plant Finder</Link>
+              <Link to="/plantFinder">Plant Finder</Link>
             </li>
             <li>
-              <Link to="/care">Plant Care</Link>
+              <Link to="/plantCare">Plant Care</Link>
             </li>
             <li>
               <Link to="/wishlist">Wishlist</Link>
@@ -48,18 +59,27 @@ const Footer = () => {
             <li>
               <Link to="/contact">Contact Us</Link>
             </li>
-            <li>
-              <Link to="/track-order">Track Order</Link>
-            </li>
           </ul>
         </div>
 
         <div className="footerCol footerNewsletter">
           <h4>Stay in the loop</h4>
           <p>Get plant care tips and new arrivals in your inbox.</p>
-          <form className="newsletterForm" onSubmit={(e) => e.preventDefault()}>
-            <input type="email" placeholder="Your email" required />
-            <button type="submit">Subscribe</button>
+          <form className="newsletterForm" onSubmit={handleSubscribe}>
+            {isSubscribed ? (
+              <p style={{ color: "#2E5C3B", fontWeight: "600", padding: "0.5rem 0" }}>Thanks for subscribing! 🌱</p>
+            ) : (
+              <>
+                <input 
+                  type="email" 
+                  placeholder="Your email" 
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required 
+                />
+                <button type="submit">Subscribe</button>
+              </>
+            )}
           </form>
 
           {/* <div className="socialIcons">

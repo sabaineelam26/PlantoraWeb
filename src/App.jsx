@@ -17,12 +17,14 @@ import Faqs from "./Pages/Faqs";
 import Register from './Components/Register'; 
 import Login from './Components/Login'; 
 import ProductDetail from './Pages/ProductDetail';
+import ScrollToTop from './Components/ScrollToTop';
 
 function App() {
   // const [count, setCount] = useState(0);
 
   return (
     <>
+      <ScrollToTop />
       <Navbar />
       <Routes>
         <Route path="/" element={<Plantora />}></Route>
