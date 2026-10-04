@@ -6,6 +6,7 @@ import { AuthContext } from "../context/AuthContext";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -13,6 +14,7 @@ const Navbar = () => {
 
   const handleAuthAction = () => {
     setOpen(false);
+    setProfileOpen(false);
     if (user) {
       logout();
       navigate("/");
@@ -90,13 +92,35 @@ const Navbar = () => {
           </NavLink>
         </li>
         <li>
-          <button 
-            className="liText auth-nav-btn" 
-            onClick={handleAuthAction}
-            style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 'inherit', fontFamily: 'inherit', padding: 0 }}
-          >
-            {user ? "Logout" : "Login"}
-          </button>
+          {user ? (
+            <div className="profile-dropdown">
+              <button 
+                className="liText auth-nav-btn profile-btn"
+                onClick={() => setProfileOpen(!profileOpen)}
+                style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 'inherit', fontFamily: 'inherit', padding: 0 }}
+              >
+                {user.name || "Profile"} ▼
+              </button>
+              {profileOpen && (
+                <div className="dropdown-menu">
+                  <button 
+                    className="dropdown-item" 
+                    onClick={handleAuthAction}
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <button 
+              className="liText auth-nav-btn" 
+              onClick={handleAuthAction}
+              style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 'inherit', fontFamily: 'inherit', padding: 0 }}
+            >
+              Login
+            </button>
+          )}
         </li>
       </ul>
     </nav>
