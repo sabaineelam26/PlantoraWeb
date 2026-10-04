@@ -30,7 +30,7 @@ const Login = () => {
       });
       const data = await response.json();
       if (response.ok) {
-        login({ ...data.user, token: data.token });
+        login(data);
         navigate("/");
       } else {
         alert(data.message || "Login failed");
