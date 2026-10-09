@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ShopContext } from '../context/ShopContext';
+import { AuthContext } from '../context/AuthContext';
 import './Cart.css';
 
 const Cart = () => {
   const { cartItems, removeFromCart, updateCartQuantity } = useContext(ShopContext);
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleRemove = (id) => {
@@ -27,7 +29,12 @@ const Cart = () => {
     <div className="cart-page">
       <h1>Your Shopping Cart</h1>
       
-      {cartItems.length === 0 ? (
+      {!user ? (
+        <div className="empty-cart">
+          <p>Please log in to view and manage your cart.</p>
+          <Link to="/login" className="btn-primary">Log In</Link>
+        </div>
+      ) : cartItems.length === 0 ? (
         <div className="empty-cart">
           <p>Your cart is currently empty.</p>
           <Link to="/plants" className="btn-primary">Return to Shop</Link>
