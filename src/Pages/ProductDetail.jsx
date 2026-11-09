@@ -14,9 +14,14 @@ const ProductDetail = () => {
   const [userExperience, setUserExperience] = useState("Intermediate");
   const [compatScore, setCompatScore] = useState(0);
 
-  const { addToCart, addToWishlist } = useContext(ShopContext);
+  const [cartBtnFeedback, setCartBtnFeedback] = useState(false);
+  const [wishlistFeedback, setWishlistFeedback] = useState(false);
+
+  const { addToCart, addToWishlist, wishlistItems } = useContext(ShopContext);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  const isWishlisted = wishlistItems?.some(p => p.id === plant?.id);
 
   useEffect(() => {
     if (plant) {
@@ -55,22 +60,22 @@ const ProductDetail = () => {
 
   const handleAddToCart = () => {
     if (!user) {
-      alert("Please login to add items to your cart.");
       navigate("/login");
       return;
     }
     addToCart(plant, quantity);
-    alert(`Added ${quantity} to cart`);
+    setCartBtnFeedback(true);
+    setTimeout(() => setCartBtnFeedback(false), 1500);
   };
 
   const handleAddToWishlist = () => {
     if (!user) {
-      alert("Please login to add items to your wishlist.");
       navigate("/login");
       return;
     }
     addToWishlist(plant);
-    alert('Added to wishlist');
+    setWishlistFeedback(true);
+    setTimeout(() => setWishlistFeedback(false), 1500);
   };
 
   return (
@@ -139,12 +144,16 @@ const ProductDetail = () => {
               <button onClick={handleIncrease}>+</button>
             </div>
             
-            <button className="btn-add-to-cart" onClick={handleAddToCart}>
-              Add to Cart - ${(plant.price * quantity).toFixed(2)}
+            <button className={`btn-add-to-cart ${cartBtnFeedback ? 'added' : ''}`} onClick={handleAddToCart}>
+              {cartBtnFeedback ? `✓ Added ${quantity} to Cart!` : `Add to Cart - $${(plant.price * quantity).toFixed(2)}`}
             </button>
             
-            <button className="btn-wishlist" onClick={handleAddToWishlist} title="Add to Wishlist">
-              ♡
+            <button 
+              className={`btn-wishlist ${isWishlisted || wishlistFeedback ? 'active' : ''}`} 
+              onClick={handleAddToWishlist} 
+              title={isWishlisted ? "Wishlisted" : "Add to Wishlist"}
+            >
+              {isWishlisted || wishlistFeedback ? '♥' : '♡'}
             </button>
           </div>
           

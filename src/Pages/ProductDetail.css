@@ -173,6 +173,11 @@
   background: #1a4d07;
 }
 
+.btn-add-to-cart.added {
+  background: #27ae60;
+  color: white;
+}
+
 .btn-wishlist {
   width: 50px;
   height: 50px;
@@ -191,6 +196,12 @@
 .btn-wishlist:hover {
   border-color: #ff4757;
   color: #ff4757;
+}
+
+.btn-wishlist.active {
+  border-color: #ff4757;
+  color: #ff4757;
+  background: #fff5f5;
 }
 
 .shipping-info {
