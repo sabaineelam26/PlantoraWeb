@@ -41,6 +41,9 @@
     font-size: 0.95rem;
     padding: 0.25rem 0;
     transition: color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .liText::after {
@@ -166,9 +169,30 @@
     border-radius: 4px;
 }
 
+/* ── Nav Badges ─────────────────────────────────────────────── */
+.nav-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    background-color: #27ae60;
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    border-radius: 999px;
+    line-height: 1;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.liText:hover .nav-badge {
+    background-color: #2f6b3a;
+    transform: scale(1.1);
+}
+
 @media (max-width: 768px) {
-    .dropdown-menu {
-        position: static;
+    .dropdown-menu {        position: static;
         box-shadow: none;
         padding-left: 1.5rem;
         background-color: transparent;

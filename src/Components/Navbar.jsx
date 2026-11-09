@@ -3,12 +3,17 @@ import './navbar.css'
 
 import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import { ShopContext } from "../context/ShopContext";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const { user, logout } = useContext(AuthContext);
+  const { cartItems, wishlistItems } = useContext(ShopContext);
   const navigate = useNavigate();
+
+  const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+  const wishlistCount = wishlistItems.length;
 
   const linkClass = ({ isActive }) => `liText ${isActive ? "active" : ""}`;
 
@@ -80,6 +85,9 @@ const Navbar = () => {
             onClick={() => setOpen(false)}
           >
             Wishlist
+            {wishlistCount > 0 && (
+              <span className="nav-badge">{wishlistCount}</span>
+            )}
           </NavLink>
         </li>
         <li>
@@ -89,6 +97,9 @@ const Navbar = () => {
             onClick={() => setOpen(false)}
           >
             Cart
+            {cartCount > 0 && (
+              <span className="nav-badge">{cartCount}</span>
+            )}
           </NavLink>
         </li>
         <li>
