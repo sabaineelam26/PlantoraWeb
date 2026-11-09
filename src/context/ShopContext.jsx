@@ -1,0 +1,75 @@
+import React, { createContext, useState, useEffect } from 'react';
+
+export const ShopContext = createContext(null);
+
+export const ShopContextProvider = (props) => {
+  const [cartItems, setCartItems] = useState(() => {
+    const saved = localStorage.getItem('plantora-cart');
+    return saved ? JSON.parse(saved) : [];
+  });
+  
+  const [wishlistItems, setWishlistItems] = useState(() => {
+    const saved = localStorage.getItem('plantora-wishlist');
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  // Save to local storage when changed
+  useEffect(() => {
+    localStorage.setItem('plantora-cart', JSON.stringify(cartItems));
+  }, [cartItems]);
+
+  useEffect(() => {
+    localStorage.setItem('plantora-wishlist', JSON.stringify(wishlistItems));
+  }, [wishlistItems]);
+
+  const addToCart = (item, quantity = 1) => {
+    setCartItems(prev => {
+      const existing = prev.find(p => p.id === item.id);
+      if (existing) {
+        return prev.map(p => p.id === item.id ? { ...p, quantity: p.quantity + quantity } : p);
+      }
+      return [...prev, { ...item, quantity }];
+    });
+  };
+
+  const removeFromCart = (id) => {
+    setCartItems(prev => prev.filter(item => item.id !== id));
+  };
+
+  const updateCartQuantity = (id, quantity) => {
+    if (quantity < 1) return;
+    setCartItems(prev => prev.map(item => item.id === id ? { ...item, quantity } : item));
+  };
+
+  const addToWishlist = (item) => {
+    setWishlistItems(prev => {
+      if (prev.find(p => p.id === item.id)) return prev;
+      return [...prev, item];
+    });
+  };
+
+  const removeFromWishlist = (id) => {
+    setWishlistItems(prev => prev.filter(item => item.id !== id));
+  };
+
+  const clearCart = () => {
+    setCartItems([]);
+  };
+
+  const contextValue = {
+    cartItems,
+    addToCart,
+    removeFromCart,
+    updateCartQuantity,
+    clearCart,
+    wishlistItems,
+    addToWishlist,
+    removeFromWishlist
+  };
+
+  return (
+    <ShopContext.Provider value={contextValue}>
+      {props.children}
+    </ShopContext.Provider>
+  );
+};

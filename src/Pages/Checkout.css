@@ -1,0 +1,240 @@
+.checkout-page {
+  padding: 40px 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.checkout-page h1 {
+  font-size: 2.5rem;
+  color: #2c3e50;
+  margin-bottom: 30px;
+}
+
+.checkout-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f9f9f9;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.checkout-form {
+  width: 100%;
+  max-width: 500px;
+  text-align: left;
+}
+
+.checkout-form h2 {
+  font-size: 1.8rem;
+  color: #34495e;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 10px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #27ae60;
+}
+
+.checkout-form .btn-primary {
+  width: 100%;
+  padding: 15px;
+  font-size: 1.1rem;
+  background-color: #27ae60;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+.checkout-form .btn-primary:hover {
+  background-color: #219653;
+}
+
+/* ── Order Success Full-Page ───────────────────────────────── */
+.checkout-page--success {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  padding: 40px 20px;
+}
+
+.order-success-overlay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: #fff;
+  border-radius: 20px;
+  padding: 56px 48px;
+  max-width: 540px;
+  width: 100%;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.12);
+  opacity: 0;
+  transform: translateY(28px) scale(0.97);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.order-success-overlay.order-success-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* SVG checkmark animation */
+.success-icon-wrap {
+  margin-bottom: 28px;
+}
+
+.success-checkmark {
+  width: 80px;
+  height: 80px;
+}
+
+.success-checkmark__circle {
+  stroke: #27ae60;
+  stroke-width: 2;
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-miterlimit: 10;
+  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.success-checkmark__check {
+  stroke: #27ae60;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: stroke 0.4s cubic-bezier(0.65, 0, 0.45, 1) 0.5s forwards;
+}
+
+@keyframes stroke {
+  100% { stroke-dashoffset: 0; }
+}
+
+.success-title {
+  font-size: 1.9rem;
+  color: #2c3e50;
+  margin: 0 0 10px;
+  font-weight: 700;
+}
+
+.success-subtitle {
+  font-size: 1rem;
+  color: #666;
+  margin: 0 0 28px;
+}
+
+/* Info card rows */
+.success-order-info {
+  width: 100%;
+  background: #f7faf8;
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-bottom: 24px;
+  border: 1px solid #e0ede6;
+}
+
+.success-order-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  font-size: 0.95rem;
+  color: #444;
+  border-bottom: 1px solid #e8f0eb;
+}
+
+.success-order-row:last-child {
+  border-bottom: none;
+}
+
+.success-order-row span {
+  color: #777;
+}
+
+.success-order-row strong {
+  color: #2c3e50;
+}
+
+.success-note {
+  font-size: 0.9rem;
+  color: #888;
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+/* CTA buttons */
+.success-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+}
+
+.btn-success-primary {
+  display: inline-block;
+  padding: 13px 28px;
+  background-color: #27ae60;
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: background-color 0.25s ease, transform 0.2s ease;
+}
+
+.btn-success-primary:hover {
+  background-color: #219653;
+  transform: translateY(-2px);
+}
+
+.btn-success-secondary {
+  display: inline-block;
+  padding: 13px 28px;
+  background-color: transparent;
+  color: #27ae60;
+  border: 2px solid #27ae60;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: background-color 0.25s ease, color 0.25s ease, transform 0.2s ease;
+}
+
+.btn-success-secondary:hover {
+  background-color: #27ae60;
+  color: #fff;
+  transform: translateY(-2px);
+}
