@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { plantsData } from "../data";
 import ProductCard from "../Components/ProductCard";
 import "./PlantFinder.css";
 
 const PlantFinder = () => {
+  const navigate = useNavigate();
   const [answers, setAnswers] = useState({
     room: "",
     sunlight: "",
@@ -14,6 +16,7 @@ const PlantFinder = () => {
   
   const [showResults, setShowResults] = useState(false);
   const [recommendedPlants, setRecommendedPlants] = useState([]);
+  const [filterCategory, setFilterCategory] = useState("");
 
   const handleChange = (question, value) => {
     setAnswers({
@@ -62,6 +65,23 @@ const PlantFinder = () => {
     
     setRecommendedPlants(topPicks);
     setShowResults(true);
+
+    // Map experience → category for Plants page filter
+    const categoryMap = {
+      "I'm a Beginner": "Easy-Care Plants",
+      "Some Experience": "Indoor Plants",
+      "Plant Parent": "Air-Purifying Plants",
+    };
+    const category = categoryMap[answers.experience] || "";
+
+    // Scroll down to results smoothly
+    setTimeout(() => {
+      const resultsEl = document.getElementById("finder-results");
+      if (resultsEl) resultsEl.scrollIntoView({ behavior: "smooth" });
+    }, 100);
+
+    // Also set a redirect flag — clicking "Shop These Plants" will navigate
+    setFilterCategory(category);
   };
 
   return (
@@ -144,15 +164,23 @@ const PlantFinder = () => {
       </form>
 
       {showResults && (
-        <div className="finder-results" style={{ marginTop: "60px", padding: "40px 0", borderTop: "2px solid #eee" }}>
+        <div id="finder-results" className="finder-results" style={{ marginTop: "60px", padding: "40px 0", borderTop: "2px solid #eee" }}>
           <div className="finder-header">
-            <h2>Your Perfect Matches</h2>
+            <h2>Your Perfect Matches 🌿</h2>
             <p>Based on your lifestyle and space, we recommend these plants for you.</p>
           </div>
           <div className="products-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '30px', marginTop: '30px' }}>
             {recommendedPlants.map((plant) => (
               <ProductCard key={plant.id} plant={plant} />
             ))}
+          </div>
+          <div style={{ textAlign: 'center', marginTop: '40px' }}>
+            <button
+              className="find-button"
+              onClick={() => navigate(filterCategory ? `/plants?category=${encodeURIComponent(filterCategory)}` : '/plants')}
+            >
+              Shop All Matching Plants →
+            </button>
           </div>
         </div>
       )}
